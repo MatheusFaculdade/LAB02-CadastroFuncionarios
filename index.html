@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Funcionários</title>
+    <script src="home.js" defer></script>
+    <link rel="stylesheet" href="./home.css">
+</head>
+<br>
+    <h1>Cadastro de Funcionários</h1>
+    
+    <form id="form-container">
+        <div class="from-dist">
+            <label class="form-label" for="nome">Nome:</label>
+            <input class="form-input" type="text" id="nome" required>
+        </div>
+        
+        <div class="from-dist">
+            <label class="form-label" for="idade">Idade:</label>
+            <input class="form-input" type="number" id="idade" min="1" required>
+        </div>
+        
+        <div class="from-dist">
+            <label class="form-label" for="curso">Cargo:</label>
+            <input class="form-input" type="text" id="cargo" required>
+        </div>
+        
+        <div class="from-dist">
+            <label class="form-label" for="notaFinal">Salário</label>
+            <input class="form-input" type="number" id="salario" required>
+        </div>
+        <div class="div-button">
+            <button class="form-button" id="cadastrarBtn" type="button">Cadastrar</button>
+        </div>
+    </form>
+</br>
+<table id="tableEmployee">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Cargo</th>
+            <th>Salário</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody id="bodytable">
+    </tbody>
+</table>
+
+
+</body>
+</html>
