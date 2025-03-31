@@ -32,10 +32,10 @@ const cargoInput = document.getElementById("cargo");
 const salarioInput = document.getElementById("salario");
 const corpoTabela = document.getElementById("bodytable");
 const cadastrarBtn = document.getElementById("cadastrarBtn");
+const relatorioDiv = document.getElementById("relatorio");
 
 const renderizarTabela = () => {
     corpoTabela.innerHTML = '';
-
     funcionarios.forEach((funcionario, indice) => {
         const linha = document.createElement('tr');
         linha.innerHTML = `
@@ -81,12 +81,12 @@ cadastrarBtn.addEventListener("click", () => {
     renderizarTabela();
 });
 
-const excluirFuncionario = (indice) => {
+const excluirFuncionario = indice => {
     funcionarios = funcionarios.filter((_, i) => i !== indice);
     renderizarTabela();
 }
 
-const editarFuncionario = (indice) => {
+const editarFuncionario = indice => {
     const funcionario = funcionarios[indice];
     nomeInput.value = funcionario.nome;
     idadeInput.value = funcionario.idade;
@@ -98,5 +98,12 @@ const editarFuncionario = (indice) => {
 }
 
 const buscarFuncionarioPorNome = nome => funcionarios.find(func => func.nome.toLowerCase() === nome.toLowerCase());
+
+const relatorios = {
+    listarAltosSalarios: () => funcionarios.filter(func => func.salario > 5000),
+    mediaSalarial: () => funcionarios.reduce((acc, func) => acc + func.salario, 0) / funcionarios.length || 0,
+    listarCargosUnicos: () => Array.from(new Set(funcionarios.map(func => func.cargo))),
+    listarNomesMaiusculos: () => funcionarios.map(func => func.nome.toUpperCase())
+};
 
 renderizarTabela();
