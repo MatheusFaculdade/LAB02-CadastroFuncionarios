@@ -23,7 +23,10 @@ class Funcionario {
     }
 }
 
+
 let funcionarios = [];
+let indiceEditando = null;
+
 const nomeInput = document.getElementById("nome");
 const idadeInput = document.getElementById("idade");
 const cargoInput = document.getElementById("cargo");
@@ -50,6 +53,7 @@ const renderizarTabela = () => {
     });
 }
 
+
 cadastrarBtn.addEventListener("click", () => {
     const nome = nomeInput.value;
     const idade = idadeInput.value;
@@ -61,8 +65,20 @@ cadastrarBtn.addEventListener("click", () => {
         return;
     }
 
-    const funcionario = new Funcionario(nome, idade, cargo, salario);
-    funcionarios.push(funcionario);
+    if (indiceEditando === null) {
+        const funcionario = new Funcionario(nome, idade, cargo, salario);
+        funcionarios.push(funcionario);
+        alert("Funcionário cadastrado com sucesso!");
+    } else {
+        const funcionario = funcionarios[indiceEditando];
+        funcionario.nome = nome;
+        funcionario.idade = idade;
+        funcionario.cargo = cargo;
+        funcionario.salario = salario;
+        alert("Funcionário atualizado com sucesso!");
+        indiceEditando = null;
+        cadastrarBtn.textContent = "Cadastrar";
+    }
 
     nomeInput.value = '';
     idadeInput.value = '';
@@ -70,24 +86,23 @@ cadastrarBtn.addEventListener("click", () => {
     salarioInput.value = '';
 
     renderizarTabela();
-    alert("Funcionário cadastrado com sucesso!");
 });
-
 
 function excluirFuncionario(indice) {
     funcionarios.splice(indice, 1);
     renderizarTabela();
 }
 
-
 function editarFuncionario(indice) {
     const funcionario = funcionarios[indice];
-
     nomeInput.value = funcionario.nome;
     idadeInput.value = funcionario.idade;
     cargoInput.value = funcionario.cargo;
     salarioInput.value = funcionario.salario;
 
-    funcionarios.splice(indice, 1); 
+    indiceEditando = indice;
+    cadastrarBtn.textContent = "Atualizar";
     renderizarTabela();
 }
+
+renderizarTabela();
