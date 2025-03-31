@@ -23,7 +23,6 @@ class Funcionario {
     }
 }
 
-
 let funcionarios = [];
 let indiceEditando = null;
 
@@ -53,7 +52,6 @@ const renderizarTabela = () => {
     });
 }
 
-
 cadastrarBtn.addEventListener("click", () => {
     const nome = nomeInput.value;
     const idade = idadeInput.value;
@@ -66,15 +64,10 @@ cadastrarBtn.addEventListener("click", () => {
     }
 
     if (indiceEditando === null) {
-        const funcionario = new Funcionario(nome, idade, cargo, salario);
-        funcionarios.push(funcionario);
+        funcionarios.push(new Funcionario(nome, idade, cargo, salario));
         alert("Funcionário cadastrado com sucesso!");
     } else {
-        const funcionario = funcionarios[indiceEditando];
-        funcionario.nome = nome;
-        funcionario.idade = idade;
-        funcionario.cargo = cargo;
-        funcionario.salario = salario;
+        funcionarios[indiceEditando] = new Funcionario(nome, idade, cargo, salario);
         alert("Funcionário atualizado com sucesso!");
         indiceEditando = null;
         cadastrarBtn.textContent = "Cadastrar";
@@ -88,12 +81,12 @@ cadastrarBtn.addEventListener("click", () => {
     renderizarTabela();
 });
 
-function excluirFuncionario(indice) {
-    funcionarios.splice(indice, 1);
+const excluirFuncionario = (indice) => {
+    funcionarios = funcionarios.filter((_, i) => i !== indice);
     renderizarTabela();
 }
 
-function editarFuncionario(indice) {
+const editarFuncionario = (indice) => {
     const funcionario = funcionarios[indice];
     nomeInput.value = funcionario.nome;
     idadeInput.value = funcionario.idade;
@@ -102,7 +95,8 @@ function editarFuncionario(indice) {
 
     indiceEditando = indice;
     cadastrarBtn.textContent = "Atualizar";
-    renderizarTabela();
 }
+
+const buscarFuncionarioPorNome = nome => funcionarios.find(func => func.nome.toLowerCase() === nome.toLowerCase());
 
 renderizarTabela();
